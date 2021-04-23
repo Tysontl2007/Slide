@@ -7,7 +7,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.canhub.cropper.CropImage;
+import com.canhub.cropper.CropImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -136,27 +135,21 @@ public class Draw extends BaseActivity implements ColorChooserDialog.ColorCallba
                     .start(this);
         } else if (data != null) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            Uri selectedImageUri = result.getUri();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri)
-                        .copy(Bitmap.Config.RGB_565, true);
-                color.getBackground().setColorFilter(new PorterDuffColorFilter(getLastColor(), PorterDuff.Mode.MULTIPLY));
-                color.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new ColorChooserDialog.Builder(Draw.this, R.string.choose_color_title)
-                                .allowUserColorInput(true)
-                                .show(Draw.this);
-                    }
-                });
-                drawView.drawBitmap(bitmap);
-                drawView.setPaintStrokeColor(getLastColor());
-                drawView.setPaintStrokeWidth(20f);
-                enabled = true;
+            bitmap = result.getBitmap(this).copy(Bitmap.Config.RGB_565, true);
+            color.getBackground().setColorFilter(new PorterDuffColorFilter(getLastColor(), PorterDuff.Mode.MULTIPLY));
+            color.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new ColorChooserDialog.Builder(Draw.this, R.string.choose_color_title)
+                            .allowUserColorInput(true)
+                            .show(Draw.this);
+                }
+            });
+            drawView.drawBitmap(bitmap);
+            drawView.setPaintStrokeColor(getLastColor());
+            drawView.setPaintStrokeWidth(20f);
+            enabled = true;
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         } else {
             finish();
         }
