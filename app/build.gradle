@@ -155,7 +155,7 @@ dependencies {
     implementation 'com.mikepenz:itemanimators:1.1.0@aar'
 
     // iOS-like over-scrolling effect
-    implementation 'me.everything:overscroll-decor-android:1.1.0'
+    implementation 'io.github.everythingme:overscroll-decor-android:1.1.1'
 
     // Library information
     implementation 'com.mikepenz:aboutlibraries:6.2.3'
