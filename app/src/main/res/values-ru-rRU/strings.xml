@@ -382,7 +382,7 @@
     <string name="btn_undo">Отменить</string>
     <string name="btn_yes">Да</string>
     <string name="btn_yes_exclaim">Да!</string>
-    <string name="btn_refresh">обновить</string>
+    <string name="btn_refresh">Обновить</string>
     <string name="btn_cache">Загрузить комментарии</string>
     <string name="btn_delete">Удалить</string>
     <string name="btn_time">Период</string>
